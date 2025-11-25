@@ -1,0 +1,98 @@
+---
+title: "CDS 101 – Final Project Proposal"
+author: "JAD / John V., Akshaya P, David B."
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  pdf_document:
+    toc: false
+    df_print: kable
+    fig_caption: false
+    number_sections: false
+    dev: pdf
+    highlight: tango
+  html_document:
+    theme: default
+    self_contained: true
+    toc: false
+    df_print: kable
+    fig_caption: false
+    number_sections: false
+    smart: true
+    dev: svg
+---
+
+## 1. Dataset
+
+**Dataset Name:**  Diamonds.
+**Source / Platform (Kaggle, UCI, gov, etc.):**  Kaggle
+
+**Short Description:**  
+- What does this dataset contain?  
+It contains various physical features of diamonds as well as their prices.
+- What are the main variables (features)?  
+The Carat (weight) of each diamond, Cut quality grade, Color of each diamond, Clarity (internal flaw grade), Table (Width percentage), x, y, and z, for length, width, and depth in millimeters. And then the price per diamond.
+- Approximate number of rows / columns?  
+about 54 thousand entries and 10 columns
+- Why is this dataset interesting or relevant?
+
+---
+
+## 2. Dataset Link
+
+Paste a direct URL to the dataset (or documentation) here:
+
+`https://www.kaggle.com/datasets/ayeshaseherr/diamonds`
+
+---
+
+## 3. Research Question
+
+Write 1–2 clear, specific, data-driven questions you want to answer.
+
+**Main research question:**
+
+Which variable, between Carat, Cut, and Clarity, influences the pricing of a diamond the most?
+
+
+
+---
+
+## 4. Modeling Approach / Models Used
+
+Describe what you plan to do analytically.
+
+- Type of task (check all that apply):
+  - [ ] Exploratory analysis only  
+  - [x] Regression (predicting a numeric value)  
+  - [ ] Classification (predicting categories/labels)  
+  - [ ] Clustering / unsupervised patterns  
+  - [ ] Other (describe)
+
+**Planned models / methods:**
+
+Linear regression
+
+**Planned evaluation metrics:**
+
+RMSE, MAE, \(R^2\)  
+
+---
+
+## 5. Expected Results
+
+What do you expect to find? It’s okay if this changes later.
+
+- We expect Clarity to be a strong predictor of Diamond pricing.
+- We expect Cut to be a weak predictor of Diamond pricing.
+- We expect Carat to be a strong predictor of Diamond pricing.
+
+---
+
+## 6. Potential Challenges (Optional)
+
+It's a very large data set.
+
+---
+
+**Submitted on:**  
+`r format(Sys.Date(), '%B %d, %Y')`
