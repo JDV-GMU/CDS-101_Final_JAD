@@ -127,10 +127,25 @@ ggplot(diamond_my_df) +
   geom_abline(slope = Diamond_model_y$coefficients[2], intercept = Diamond_model_y$coefficients[1])
 ```
 
-
-
-
-
+```{r}
+diamond_ma_df %>%
+  ggplot()+
+  geom_histogram(mapping = aes(x = resid), bins = 10) +
+  labs(title = "Residuals of Model A")
+```
+```{r}
+diamond_mu_df %>%
+  ggplot()+
+  geom_histogram(mapping = aes(x = resid), bins = 10) +
+  labs(title = "Residuals of Model U")
+```
+```{r}
+diamond_my_df %>%
+  ggplot()+
+  geom_histogram(mapping = aes(x = resid), bins = 10) +
+  labs(title = "Residuals of Model Y")
+```
+Model for Carat is Skewed left, Cut and clarity are skewed right.
 
 
 
