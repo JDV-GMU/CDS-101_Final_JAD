@@ -150,7 +150,7 @@ Model for Carat is Skewed left in total, but there is a spike at 0, Cut and clar
 Carat seems to have a higher correlation with Price in comparison to Clarity and Cut.
 
 Source: https://www.vrai.com/journal/post/diamond-carat-price
-aritcle by Alicia Briggs | February 06, 2023
+article by Alicia Briggs | February 06, 2023
 
 
 "Does The Carat Of A Diamond Affect The Price?
