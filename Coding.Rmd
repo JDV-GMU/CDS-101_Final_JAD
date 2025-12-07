@@ -46,6 +46,12 @@ Diamond_model <- lm(price ~ carat, data = diamond_1)
 Diamond_model %>%
   tidy()
 ```
+```{r}
+Diamond_model %>%
+  glance()
+```
+R squared is close to 1
+
 
 
 
