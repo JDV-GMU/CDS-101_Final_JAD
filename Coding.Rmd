@@ -85,6 +85,49 @@ Diamond_model_y %>%
   glance()
 ```
 
+```{r}
+diamond_ma_df <- diamonds %>%
+  add_predictions(Diamond_model_a) %>%
+  add_residuals(Diamond_model_a)
+```
+```{r}
+diamond_ma_df
+```
+```{r}
+ggplot(diamond_ma_df) +
+  geom_point(mapping = aes(x = price, y = carat)) +
+  geom_abline(slope = Diamond_model_a$coefficients[2], intercept = Diamond_model_a$coefficients[1])
+```
+
+```{r}
+diamond_mu_df <- diamonds %>%
+  add_predictions(Diamond_model_u) %>%
+  add_residuals(Diamond_model_u)
+```
+```{r}
+diamond_mu_df
+```
+```{r}
+ggplot(diamond_mu_df) +
+  geom_point(mapping = aes(x = price, y = cut)) +
+  geom_abline(slope = Diamond_model_u$coefficients[2], intercept = Diamond_model_u$coefficients[1])
+```
+
+```{r}
+diamond_my_df <- diamonds %>%
+  add_predictions(Diamond_model_y) %>%
+  add_residuals(Diamond_model_y)
+```
+```{r}
+diamond_my_df
+```
+```{r}
+ggplot(diamond_my_df) +
+  geom_point(mapping = aes(x = price, y = clarity)) +
+  geom_abline(slope = Diamond_model_y$coefficients[2], intercept = Diamond_model_y$coefficients[1])
+```
+
+
 
 
 
