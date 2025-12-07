@@ -52,10 +52,36 @@ Diamond_model %>%
 ```
 R squared is close to 1
 
+```{r}
+Diamond_model_u <- lm(price ~ cut, data = diamond_1)
+```
+
+```{r}
+Diamond_model_y <- lm(price ~ clarity, data = diamond_1)
+```
+
+```{r}
+Diamond_model_u %>%
+  tidy()
+```
+
+
+```{r}
+Diamond_model_y %>%
+  tidy()
+```
+
+```{r}
+Diamond_model_u %>%
+  glance()
+```
 
 
 
-
+```{r}
+Diamond_model_y %>%
+  glance()
+```
 
 
 
