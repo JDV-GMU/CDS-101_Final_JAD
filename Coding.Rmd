@@ -130,23 +130,30 @@ ggplot(diamond_my_df) +
 ```{r}
 diamond_ma_df %>%
   ggplot()+
-  geom_histogram(mapping = aes(x = resid), bins = 10) +
+  geom_histogram(mapping = aes(x = resid), bins = 20) +
   labs(title = "Residuals of Model A")
 ```
 ```{r}
 diamond_mu_df %>%
   ggplot()+
-  geom_histogram(mapping = aes(x = resid), bins = 10) +
+  geom_histogram(mapping = aes(x = resid), bins = 20) +
   labs(title = "Residuals of Model U")
 ```
 ```{r}
 diamond_my_df %>%
   ggplot()+
-  geom_histogram(mapping = aes(x = resid), bins = 10) +
+  geom_histogram(mapping = aes(x = resid), bins = 20) +
   labs(title = "Residuals of Model Y")
 ```
-Model for Carat is Skewed left, Cut and clarity are skewed right.
+Model for Carat is Skewed left in total, but there is a spike at 0, Cut and clarity are skewed right.
+
+Carat seems to have a higher correlation with Price in comparison to Clarity and Cut.
+
+Source: https://www.vrai.com/journal/post/diamond-carat-price
+aritcle by Alicia Briggs | February 06, 2023
 
 
+"Does The Carat Of A Diamond Affect The Price?
+Carat weight is a significant factor in determining the total price of a diamond, but it’s not the only one. The price of a diamond exponentially rises after 1 carat, with a 2 carat diamond often more than double the cost. Why? Because the higher the carat weight, the bigger the loose diamond it was cut from. This means the diamond is rarer and therefore more valuable."
 
 
