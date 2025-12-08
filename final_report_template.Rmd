@@ -102,9 +102,7 @@ getting muddled.
 
 - Comment on labels, legends, colors, and overall readability. 
 
-The heatmaps show the density in different colors, making it more readible and 
-understandable of the relationship. All graphs are labeled with accurate titles
-and labels. 
+The heatmaps show the density in different colors, making it more readable and understandable of the relationship. All graphs are labeled with accurate titles and labels. 
 
 - Mention any steps you took to make plots accessible and interpretable.
 W
