@@ -66,6 +66,18 @@ This section maps directly to the **EDA** part of the rubric:
 ```{r eda-summary, message=FALSE, warning=FALSE}
 # library(dplyr)
 # summary(data_clean)
+Diamond_model_a <- lm(price ~ carat, data = diamond_1)
+Diamond_model_a %>%
+  glance()
+
+Diamond_model_u <- lm(price ~ cut, data = diamond_1)
+Diamond_model_u %>%
+  glance()
+
+Diamond_model_y <- lm(price ~ clarity, data = diamond_1)
+Diamond_model_y %>%
+  glance()
+
 ```
 
 ```{r eda-plot-example, message=FALSE, warning=FALSE, fig.cap="Example histogram of a numeric variable (EDA rubric)."}
