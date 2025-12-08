@@ -103,7 +103,13 @@ diamond_ma_df
 ```
 ```{r}
 ggplot(diamond_ma_df) +
-  geom_point(mapping = aes(x = price, y = carat)) +
+  geom_bin2d(aes(x = price, y = carat)) +
+  labs(
+    title = "Carat vs. Price",
+    x = "Price",
+    y = "Carat"
+  ) + 
+scale_fill_viridis_c(trans = "log") +
   geom_abline(slope = Diamond_model_a$coefficients[2], intercept = Diamond_model_a$coefficients[1])
 ```
 
