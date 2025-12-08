@@ -44,7 +44,7 @@ diamond_1 %>%
     title = "Carat vs. Price",
     x = "Carat",
     y = "Price"
-  ) +
+  ) + 
 scale_fill_viridis_c(trans = "log") 
   #facet_wrap( ~ member_casual)
 ```
