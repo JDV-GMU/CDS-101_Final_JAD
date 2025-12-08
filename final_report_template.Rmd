@@ -1,6 +1,6 @@
 ---
 title: "CDS 101 – Final Project Report"
-author: "Group Name / Members"
+author: "JAD - John D Villanuela, Akshaya Pabbisetty, David Brown"
 date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
   html_document:
@@ -50,6 +50,9 @@ Describe the steps you took to make the data usable, for example:
 #   dplyr::mutate(
 #     new_feature = some_transformation(old_feature)
 #   )
+
+diamond_1 <- diamonds %>%
+  select(carat, cut, clarity, price)
 ```
 
 # 4. Exploratory Data Analysis (EDA)
@@ -76,9 +79,25 @@ This section maps directly to the **EDA** part of the rubric:
 
 Use this section to satisfy the **Visualization Quality** rubric criterion:
 
-- Explain why your plot types are appropriate.  
-- Comment on labels, legends, colors, and overall readability.  
+- Explain why your plot types are appropriate.
+
+We used a heat map to visualize the relationship and the density of 
+weight in Carats in comparison to the price of a diamond. Due to the 
+quantity of entries, there is a high density that would not be able to be 
+explored efficiently with a point plot. The heat map shows the points with a
+higher density of diamonds and lesser density of diamonds without 
+getting muddled. 
+
+- Comment on labels, legends, colors, and overall readability. 
+
+The heatmaps show the density in different colors, making it more readible and 
+understandable of the relationship. All graphs are labeled with accurate titles
+and labels. 
+
 - Mention any steps you took to make plots accessible and interpretable.
+W
+e chose to utilize a heat map instead of a normal point plot to make it more 
+interpretable and accessible due to the sheer amount of entires. 
 
 # 6. Modeling Approach
 
@@ -110,6 +129,22 @@ Describe:
 # model <- glm(target ~ ., data = train, family = binomial)
 # preds <- predict(model, newdata = test, type = "response")
 # # compute metrics...
+
+diamond_ma_df %>%
+  ggplot()+
+  geom_histogram(mapping = aes(x = resid), bins = 20) +
+  labs(title = "Residuals of Carat Model")
+
+diamond_mu_df %>%
+  ggplot()+
+  geom_histogram(mapping = aes(x = resid), bins = 20) +
+  labs(title = "Residuals of Cut Model")
+
+diamond_my_df %>%
+  ggplot()+
+  geom_histogram(mapping = aes(x = resid), bins = 20) +
+  labs(title = "Residuals of Clarity Model")
+
 ```
 
 # 8. Conclusions & Recommendations
@@ -130,6 +165,10 @@ Briefly document how someone else can reproduce your results:
 
 ```{r session-info, echo=FALSE}
 sessionInfo()
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(broom))
+suppressPackageStartupMessages(library(modelr))
+diamonds <- readr::read_csv("data/sample_data.csv")
 ```
 
 # 10. References
@@ -139,6 +178,12 @@ List any references you used, such as:
 - Dataset documentation.  
 - Research papers or articles.  
 - Tutorials or blog posts.
+
+https://www.vrai.com/journal/post/diamond-carat-price
+article by Alicia Briggs | February 06, 2023
+
+https://www.kaggle.com/datasets/ayeshaseherr/diamonds.
+
 
 # Appendix (Optional)
 
