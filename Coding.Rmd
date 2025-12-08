@@ -34,7 +34,8 @@ diamond_1 %>%
                names_to = "measurement",
                values_to = "value") %>%
   ggplot() +
-    geom_point(mapping = aes(x = value, y = price)) +
+    geom_bin2d(aes(x = value, y = price)) +
+    scale_fill_viridis_c(trans = "log") +
     facet_wrap(~ measurement, scales = "free_x")
 ```
 
@@ -50,8 +51,7 @@ diamond_1 %>%
     x = "Carat",
     y = "Price"
   ) + 
-scale_fill_viridis_c(trans = "log") 
-  #facet_wrap( ~ member_casual)
+scale_fill_viridis_c(trans = "log")
 ```
 # Linear regression model for carat
 ```{r}
