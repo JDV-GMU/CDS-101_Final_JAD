@@ -2,7 +2,7 @@
 title: "Coding"
 output: html_document
 ---
-
+# Set up
 ```{r setup}
 knitr::opts_chunk$set(
   echo = TRUE,
@@ -20,12 +20,14 @@ suppressPackageStartupMessages(library(modelr))
 diamonds <- readr::read_csv("data/sample_data.csv")
 ```
 
+
+# cleaning data, only getting the needed values
 ```{r}
 diamond_1 <- diamonds %>%
   select(carat, cut, clarity, price)
 ```
 
-
+# Clarity and cut vs prices point plots
 ```{r, fig.width = 8}
 diamond_1 %>%
   pivot_longer(cols = cut:clarity,
@@ -35,6 +37,9 @@ diamond_1 %>%
     geom_point(mapping = aes(x = value, y = price)) +
     facet_wrap(~ measurement, scales = "free_x")
 ```
+
+
+# Carat vs price heat plot
 ```{r}
 
 diamond_1 %>%
@@ -48,7 +53,7 @@ diamond_1 %>%
 scale_fill_viridis_c(trans = "log") 
   #facet_wrap( ~ member_casual)
 ```
-
+# Linear regression model for carat
 ```{r}
 Diamond_model_a <- lm(price ~ carat, data = diamond_1)
 ```
@@ -60,39 +65,37 @@ Diamond_model_a %>%
 Diamond_model_a %>%
   glance()
 ```
-R squared is close to 1
+R squared is closest to 1
 
+# Linear regression model for cut
 ```{r}
 Diamond_model_u <- lm(price ~ cut, data = diamond_1)
 ```
+```{r}
+Diamond_model_u %>%
+  tidy()
+```
+```{r}
+Diamond_model_u %>%
+  glance()
+```
 
+
+# Linear regression model for clarity
 ```{r}
 Diamond_model_y <- lm(price ~ clarity, data = diamond_1)
 ```
-
-```{r}
-Diamond_model_u %>%
-  tidy()
-```
-
-
 ```{r}
 Diamond_model_y %>%
   tidy()
 ```
-
-```{r}
-Diamond_model_u %>%
-  glance()
-```
-
-
-
 ```{r}
 Diamond_model_y %>%
   glance()
 ```
 
+
+# graphing Carat vs price in relation to its Model
 ```{r}
 diamond_ma_df <- diamonds %>%
   add_predictions(Diamond_model_a) %>%
@@ -113,6 +116,7 @@ scale_fill_viridis_c(trans = "log") +
   geom_abline(slope = Diamond_model_a$coefficients[2], intercept = Diamond_model_a$coefficients[1])
 ```
 
+# graphing cut vs price in relation to its Model
 ```{r}
 diamond_mu_df <- diamonds %>%
   add_predictions(Diamond_model_u) %>%
@@ -127,6 +131,9 @@ ggplot(diamond_mu_df) +
   geom_abline(slope = Diamond_model_u$coefficients[2], intercept = Diamond_model_u$coefficients[1])
 ```
 
+
+
+# graphing clarity vs price in relation to its Model
 ```{r}
 diamond_my_df <- diamonds %>%
   add_predictions(Diamond_model_y) %>%
