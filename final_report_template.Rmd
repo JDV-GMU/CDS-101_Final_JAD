@@ -203,10 +203,7 @@ Model for Carat is Skewed left in total, but there is a higher spike at 0, where
 
 Summarize the key takeaways:
 
--   Carat seems to have a higher correlation with Price in comparison to Clarity and Cut.
--   Carat's squared residuals indicated a much higher correlation with the Pricing of a diamond sold.
--   This is nearly 54 thousand entries with the price range approximatly 18497 dollars in length.
--   To quote an article by Alicia Briggs from Vrai, "Carat weight is a significant factor in determining the total price of a diamond, but it’s not the only one. The price of a diamond exponentially rises after 1 carat, with a 2 carat diamond often more than double the cost. Why? Because the higher the carat weight, the bigger the loose diamond it was cut from. This means the diamond is rarer and therefore more valuable."
+Carat seems to have a higher correlation with the Price of a diamond in comparison to Clarity and Cut because of the feature's squared residuals being very close to 1. Since this dataset has nearly 54 thousand entries with the price range approximately 18497 dollars, the sheer amount of data does hinder some comprehension. So taking some smaller sample of the data would help with comprehension. To quote an article by Alicia Briggs from Vrai, in relation to the reasoning behind carat's influence, "Carat weight is a significant factor in determining the total price of a diamond, but it’s not the only one. The price of a diamond exponentially rises after 1 carat, with a 2 carat diamond often more than double the cost. Why? Because the higher the carat weight, the bigger the loose diamond it was cut from. This means the diamond is rarer and therefore more valuable."
 
 # 9. Code Quality & Reproducibility
 
