@@ -127,9 +127,11 @@ readable and understandable of the relationship. All graphs are labeled
 with accurate titles and labels.
 
 -   Mention any steps you took to make plots accessible and
-    interpretable. W e chose to utilize a heat map instead of a normal
-    point plot to make it more interpretable and accessible due to the
-    sheer amount of entires.
+    interpretable.
+    
+We chose to utilize a heat map instead of a normal
+point plot to make it more interpretable and accessible due to the
+sheer amount of entires.
 
 # 6. Modeling Approach
 
