@@ -131,6 +131,29 @@ with accurate titles and labels.
     
 We chose to utilize a heat map instead of a normal point plot to make it more interpretable and accessible due to the sheer amount of entries.
 
+```{r, fig.width = 8}
+diamond_1 %>%
+  pivot_longer(cols = cut:clarity,
+               names_to = "measurement",
+               values_to = "value") %>%
+  ggplot() +
+    geom_bin2d(aes(x = value, y = price)) +
+    scale_fill_viridis_c(trans = "log") +
+    facet_wrap(~ measurement, scales = "free_x")+
+  labs(title = "Cut and Clarity vs Price")
+```
+```{r}
+diamond_1 %>%
+  ggplot() +
+  geom_bin2d(aes(x = carat, y = price)) +
+  labs(
+    title = "Carat vs. Price",
+    x = "Carat",
+    y = "Price"
+  ) + 
+scale_fill_viridis_c(trans = "log")
+```
+
 # 6. Modeling Approach
 
 Explain how you framed the problem and which models you chose:
