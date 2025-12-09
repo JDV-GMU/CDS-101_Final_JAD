@@ -136,7 +136,7 @@ with accurate titles and labels.
 Explain how you framed the problem and which models you chose:
 
 -   Type of task (regression, classification, etc.).\
--   Baseline model or heuristic, if used.\
+Basic linear regression model.
 -   Main model(s) chosen and why they are appropriate.
 
 # 7. Model Implementation & Evaluation
