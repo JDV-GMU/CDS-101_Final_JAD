@@ -62,13 +62,6 @@ Describe the steps you took to make the data usable, for example:
 -   Any scaling or encoding.
 
 ```{r cleaning, eval=FALSE}
-# Example pseudo-code for cleaning:
-# data_clean <- data |>
-#   dplyr::filter(!is.na(target_variable)) |>
-#   dplyr::mutate(
-#     new_feature = some_transformation(old_feature)
-#   )
-
 diamond_1 <- diamonds %>%
   select(carat, cut, clarity, price)
 ```
