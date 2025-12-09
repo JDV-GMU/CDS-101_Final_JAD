@@ -3,13 +3,13 @@ title: "CDS 101 – Final Project Report"
 author: "JAD - John D Villanueva, Akshaya Pabbisetty, David Brown"
 date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
+  pdf_document:
+    toc: true
   html_document:
     css: "gmu-cds101.css"
     toc: true
     toc_depth: 3
     number_sections: true
-  pdf_document:
-    toc: true
 editor_options: 
   markdown: 
     wrap: 72
@@ -51,14 +51,6 @@ diamond_df <- read_csv("data/diamonds.csv")
 
 # 3. Data Cleaning & Preprocessing
 
-Describe the steps you took to make the data usable, for example:
-
--   Handling missing values (drop, impute, etc.).\
--   Fixing types (dates, numeric vs. categorical).\
--   Removing outliers (if done).\
--   Creating new features (feature engineering).\
--   Any scaling or encoding.
-
 ```{r cleaning}
 library(tidyverse)
 diamond_1 <- diamonds %>%
@@ -70,9 +62,6 @@ diamond_1 <- diamonds %>%
 ```
 
 # 4. Exploratory Data Analysis (EDA)
-
-This section maps directly to the **EDA** part of the rubric:
-
 
 ```{r eda-summary, message=FALSE, warning=FALSE}
 library(broom)
@@ -104,9 +93,6 @@ diamond_my_df <- diamonds %>%
 When glancing at each model, the squared residual for the Carat Model is much closer to one in comparison to Cut's model and Clarity's model. As well as the creastion of the dataframes of said models.
 
 # 5. Visualization Quality and Storytelling
-
-Use this section to satisfy the **Visualization Quality** rubric
-criterion:
 
 -   Explain why your plot types are appropriate.
 
@@ -171,17 +157,6 @@ is a continuous predictor.
 
 # 7. Model Implementation & Evaluation
 
-This corresponds to the **Model Implementation & Evaluation** rubric
-criterion.
-
-Describe:
-
--   Features used.\
--   Data splitting strategy (train/test or cross-validation).\
--   Metrics used (accuracy, F1, RMSE, etc.).\
--   Tables/plots summarizing performance.\
--   A short interpretation of each metric/plot.
-
 ```{r modeling}
 diamond_ma_df %>%
   ggplot()+
@@ -200,8 +175,6 @@ Model for Carat is Skewed left in total, but there is a higher spike at 0, where
 
 
 # 8. Conclusions & Recommendations
-
-Summarize the key takeaways:
 
 Carat seems to have a higher correlation with the Price of a diamond in comparison to Clarity and Cut because of the feature's squared residuals being very close to 1. Since this dataset has nearly 54 thousand entries with the price range approximately 18497 dollars, the sheer amount of data does hinder some comprehension. So taking some smaller sample of the data would help with comprehension. To quote an article by Alicia Briggs from Vrai, in relation to the reasoning behind carat's influence, "Carat weight is a significant factor in determining the total price of a diamond, but it’s not the only one. The price of a diamond exponentially rises after 1 carat, with a 2 carat diamond often more than double the cost. Why? Because the higher the carat weight, the bigger the loose diamond it was cut from. This means the diamond is rarer and therefore more valuable."
 
