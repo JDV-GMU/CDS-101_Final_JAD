@@ -77,9 +77,6 @@ diamond_1 <- diamonds %>%
 
 This section maps directly to the **EDA** part of the rubric:
 
--   Summary statistics\
--   Visualizations\
--   Interpretation connected to the research question
 
 ```{r eda-summary, message=FALSE, warning=FALSE}
 # library(dplyr)
@@ -202,15 +199,17 @@ diamond_my_df %>%
   labs(title = "Residuals of Clarity Model")
 
 ```
+Model for Carat is Skewed left in total, but there is a higher spike at 0, where as Cut and clarity are skewed right.
+
 
 # 8. Conclusions & Recommendations
 
 Summarize the key takeaways:
 
--   Answer your original research question(s) directly.\
--   Highlight the most important patterns or relationships you found.\
--   Discuss limitations (data size, bias, missing variables, etc.).\
--   Suggest possible extensions or future work.
+-   Carat seems to have a higher correlation with Price in comparison to Clarity and Cut.
+-   Carat's squared residuals indicated a much higher correlation with the Pricing of a diamond sold.
+-   This is nearly 54 thousand entries with the price range approximatly 18497 dollars in length.
+-   
 
 # 9. Code Quality & Reproducibility
 
