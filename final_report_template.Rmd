@@ -44,7 +44,7 @@ USD.
 There are just under 54000 entries/rows in the dataset, making it very
 large overall.
 
-```{r setup-data}
+```{r setup-data, echo=FALSE, message=FALSE, warning=FALSE}
 library(readr)
 diamond_df <- read_csv("data/diamonds.csv")
 ```
@@ -59,7 +59,8 @@ Describe the steps you took to make the data usable, for example:
 -   Creating new features (feature engineering).\
 -   Any scaling or encoding.
 
-```{r cleaning}
+```{r cleaning, eval=FALSE}
+library(tidyverse)
 diamond_1 <- diamonds %>%
   select(carat, cut, clarity, price)
 ```
@@ -86,13 +87,6 @@ Diamond_model_y %>%
 ```
 
 When glancing at each model, the squared residual for the Carat Model is much closer to one in comparison to Cut's model and Clarity's model.
-
-```{r eda-plot-example, message=FALSE, warning=FALSE, fig.cap="Example histogram of a numeric variable (EDA rubric)."}
-# library(ggplot2)
-# ggplot(data_clean, aes(x = some_numeric_variable)) +
-#   geom_histogram(binwidth = 5, color = "white") +
-#   labs(x = "Some Variable", y = "Count", title = "Distribution of Some Variable")
-```
 
 # 5. Visualization Quality and Storytelling
 
@@ -174,16 +168,6 @@ Describe:
 -   A short interpretation of each metric/plot.
 
 ```{r modeling, eval=FALSE}
-# Example structure:
-# set.seed(123)
-# train_index <- sample(seq_len(nrow(data_clean)), size = 0.8 * nrow(data_clean))
-# train <- data_clean[train_index, ]
-# test  <- data_clean[-train_index, ]
-#
-# model <- glm(target ~ ., data = train, family = binomial)
-# preds <- predict(model, newdata = test, type = "response")
-# # compute metrics...
-
 diamond_ma_df %>%
   ggplot()+
   geom_histogram(mapping = aes(x = resid), bins = 20) +
@@ -218,16 +202,6 @@ Briefly document how someone else can reproduce your results:
 
 ```{r session-info, echo=FALSE}
 sessionInfo()
-knitr::opts_chunk$set(
-  echo = TRUE,
-  eval = TRUE,
-  fig.width = 5,
-  fig.asp = 0.618,
-  out.width = "70%",
-  dpi = 120,
-  fig.align = "center",
-  cache = FALSE
-)
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(broom))
 suppressPackageStartupMessages(library(modelr))
