@@ -11,7 +11,7 @@
 
 <meta name="author" content="JAD - John D Villanueva, Akshaya Pabbisetty, David Brown" />
 
-<meta name="date" content="2025-12-08" />
+<meta name="date" content="2025-12-09" />
 
 <title>CDS 101 – Final Project Report</title>
 
@@ -441,7 +441,7 @@ display: none;
 <h1 class="title toc-ignore">CDS 101 – Final Project Report</h1>
 <h4 class="author">JAD - John D Villanueva, Akshaya Pabbisetty, David
 Brown</h4>
-<h4 class="date">December 08, 2025</h4>
+<h4 class="date">December 09, 2025</h4>
 
 </div>
 
@@ -529,18 +529,6 @@ diamond_df &lt;- read_csv(&quot;data/diamonds.csv&quot;)</code></pre>
 <div id="data-cleaning-preprocessing" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> 3. Data Cleaning &amp;
 Preprocessing</h1>
-<p>Describe the steps you took to make the data usable, for example:</p>
-<ul>
-<li>Handling missing values (drop, impute, etc.).<br />
-</li>
-<li>Fixing types (dates, numeric vs. categorical).<br />
-</li>
-<li>Removing outliers (if done).<br />
-</li>
-<li>Creating new features (feature engineering).<br />
-</li>
-<li>Any scaling or encoding.</li>
-</ul>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.1.4     ✔ purrr     1.1.0
@@ -561,8 +549,6 @@ Preprocessing</h1>
 <div id="exploratory-data-analysis-eda" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> 4. Exploratory Data
 Analysis (EDA)</h1>
-<p>This section maps directly to the <strong>EDA</strong> part of the
-rubric:</p>
 <pre class="r"><code>library(broom)
 library(tidyverse)
 library(modelr)
@@ -606,8 +592,6 @@ As well as the creastion of the dataframes of said models.</p>
 <div id="visualization-quality-and-storytelling" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> 5. Visualization
 Quality and Storytelling</h1>
-<p>Use this section to satisfy the <strong>Visualization
-Quality</strong> rubric criterion:</p>
 <ul>
 <li>Explain why your plot types are appropriate.</li>
 </ul>
@@ -675,20 +659,6 @@ predictor since it is a continuous predictor.</p>
 <div id="model-implementation-evaluation" class="section level1" number="7">
 <h1><span class="header-section-number">7</span> 7. Model Implementation
 &amp; Evaluation</h1>
-<p>This corresponds to the <strong>Model Implementation &amp;
-Evaluation</strong> rubric criterion.</p>
-<p>Describe:</p>
-<ul>
-<li>Features used.<br />
-</li>
-<li>Data splitting strategy (train/test or cross-validation).<br />
-</li>
-<li>Metrics used (accuracy, F1, RMSE, etc.).<br />
-</li>
-<li>Tables/plots summarizing performance.<br />
-</li>
-<li>A short interpretation of each metric/plot.</li>
-</ul>
 <pre class="r"><code>diamond_ma_df %&gt;%
   ggplot()+
   geom_histogram(mapping = aes(x = resid), bins = 20) +
@@ -710,7 +680,6 @@ Model for Carat is Skewed left in total, but there is a higher spike at
 <div id="conclusions-recommendations" class="section level1" number="8">
 <h1><span class="header-section-number">8</span> 8. Conclusions &amp;
 Recommendations</h1>
-<p>Summarize the key takeaways:</p>
 <p>Carat seems to have a higher correlation with the Price of a diamond
 in comparison to Clarity and Cut because of the feature’s squared
 residuals being very close to 1. Since this dataset has nearly 54
