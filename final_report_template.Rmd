@@ -129,9 +129,7 @@ with accurate titles and labels.
 -   Mention any steps you took to make plots accessible and
     interpretable.
     
-We chose to utilize a heat map instead of a normal
-point plot to make it more interpretable and accessible due to the
-sheer amount of entires.
+We chose to utilize a heat map instead of a normal point plot to make it more interpretable and accessible due to the sheer amount of entries.
 
 # 6. Modeling Approach
 
