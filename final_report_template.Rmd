@@ -3,20 +3,18 @@ title: "CDS 101 – Final Project Report"
 author: "JAD - John D Villanuela, Akshaya Pabbisetty, David Brown"
 date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
+  pdf_document:
+    toc: true
   html_document:
     css: "gmu-cds101.css"
     toc: true
     toc_depth: 3
     number_sections: true
-  pdf_document:
-    toc: true
 editor_options: 
   markdown: 
     wrap: 72
 ---
 
-> Replace this template text with your own writing, keeping the headings
-> and overall structure aligned with the **CDS 101 project rubric**.
 
 # 1. Problem Definition
 
@@ -46,7 +44,7 @@ USD.
 There are just under 54000 entries/rows in the dataset, making it very
 large overall.
 
-```{r setup-data, echo=FALSE, message=FALSE, warning=FALSE}
+```{r setup-data}
 library(readr)
 diamond_df <- read_csv("data/diamonds.csv")
 ```
@@ -61,7 +59,7 @@ Describe the steps you took to make the data usable, for example:
 -   Creating new features (feature engineering).\
 -   Any scaling or encoding.
 
-```{r cleaning, eval=FALSE}
+```{r cleaning}
 diamond_1 <- diamonds %>%
   select(carat, cut, clarity, price)
 ```
@@ -220,6 +218,16 @@ Briefly document how someone else can reproduce your results:
 
 ```{r session-info, echo=FALSE}
 sessionInfo()
+knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = TRUE,
+  fig.width = 5,
+  fig.asp = 0.618,
+  out.width = "70%",
+  dpi = 120,
+  fig.align = "center",
+  cache = FALSE
+)
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(broom))
 suppressPackageStartupMessages(library(modelr))
