@@ -10,23 +10,41 @@ output:
     number_sections: true
   pdf_document:
     toc: true
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
-> Replace this template text with your own writing, keeping the headings and overall structure aligned with the **CDS 101 project rubric**.
+> Replace this template text with your own writing, keeping the headings
+> and overall structure aligned with the **CDS 101 project rubric**.
 
 # 1. Problem Definition
 
-We are going to be investigating a variety of factors that may affect the price of a diamond. Diamonds are highly sought-after gems, used in all sorts of precious jewelry. With a dataset containing information on many aspects of diamonds, we will determine the particular effects of the clarity, carats, and cut quality of any diamond upon its price. We believe that the clarity and carat of a diamond will be strong predictors of pricing while the cut quality will be a weaker predictor.
+We are going to be investigating a variety of factors that may affect
+the price of a diamond. Diamonds are highly sought-after gems, used in
+all sorts of precious jewelry. With a dataset containing information on
+many aspects of diamonds, we will determine the particular effects of
+the clarity, carats, and cut quality of any diamond upon its price. We
+believe that the clarity and carat of a diamond will be strong
+predictors of pricing while the cut quality will be a weaker predictor.
 
 # 2. Data Acquisition & Description
 
-The dataset is, quite simply, called "diamonds". It was obtained from the website Kaggle at the link https://www.kaggle.com/datasets/ayeshaseherr/diamonds. 
+The dataset is, quite simply, called "diamonds". It was obtained from
+the website Kaggle at the link
+<https://www.kaggle.com/datasets/ayeshaseherr/diamonds>.
 
-There are ten variables creating each column; three are categorical, these being the cut quality, color grade, and clarity rating. The remaining seven are carat, depth, table, x, y, z, and price. 
+There are ten variables creating each column; three are categorical,
+these being the cut quality, color grade, and clarity rating. The
+remaining seven are carat, depth, table, x, y, z, and price.
 
-The variables x, y, and z are the length, width, and depth in millimeters, carats are a measure of diamond weight, table is the top width percentage of each diamond, and price is standardly measured in USD.
+The variables x, y, and z are the length, width, and depth in
+millimeters, carats are a measure of diamond weight, table is the top
+width percentage of each diamond, and price is standardly measured in
+USD.
 
-There are just under 54000 entries/rows in the dataset, making it very large overall. 
+There are just under 54000 entries/rows in the dataset, making it very
+large overall.
 
 ```{r setup-data, echo=FALSE, message=FALSE, warning=FALSE}
 library(readr)
@@ -37,11 +55,11 @@ diamond_df <- read_csv("data/diamonds.csv")
 
 Describe the steps you took to make the data usable, for example:
 
-- Handling missing values (drop, impute, etc.).  
-- Fixing types (dates, numeric vs. categorical).  
-- Removing outliers (if done).  
-- Creating new features (feature engineering).  
-- Any scaling or encoding.
+-   Handling missing values (drop, impute, etc.).\
+-   Fixing types (dates, numeric vs. categorical).\
+-   Removing outliers (if done).\
+-   Creating new features (feature engineering).\
+-   Any scaling or encoding.
 
 ```{r cleaning, eval=FALSE}
 # Example pseudo-code for cleaning:
@@ -59,9 +77,9 @@ diamond_1 <- diamonds %>%
 
 This section maps directly to the **EDA** part of the rubric:
 
-- Summary statistics  
-- Visualizations  
-- Interpretation connected to the research question  
+-   Summary statistics\
+-   Visualizations\
+-   Interpretation connected to the research question
 
 ```{r eda-summary, message=FALSE, warning=FALSE}
 # library(dplyr)
@@ -77,8 +95,9 @@ Diamond_model_u %>%
 Diamond_model_y <- lm(price ~ clarity, data = diamond_1)
 Diamond_model_y %>%
   glance()
-
 ```
+
+When glancing at each model, the squared residual for the Carat Model is much closer to one in comparison to Cut's model and Clarity's model.
 
 ```{r eda-plot-example, message=FALSE, warning=FALSE, fig.cap="Example histogram of a numeric variable (EDA rubric)."}
 # library(ggplot2)
@@ -89,45 +108,49 @@ Diamond_model_y %>%
 
 # 5. Visualization Quality and Storytelling
 
-Use this section to satisfy the **Visualization Quality** rubric criterion:
+Use this section to satisfy the **Visualization Quality** rubric
+criterion:
 
-- Explain why your plot types are appropriate.
+-   Explain why your plot types are appropriate.
 
-We used a heat map to visualize the relationship and the density of 
-weight in Carats in comparison to the price of a diamond. Due to the 
-quantity of entries, there is a high density that would not be able to be 
-explored efficiently with a point plot. The heat map shows the points with a
-higher density of diamonds and lesser density of diamonds without 
-getting muddled. 
+We used a heat map to visualize the relationship and the density of
+weight in Carats in comparison to the price of a diamond. Due to the
+quantity of entries, there is a high density that would not be able to
+be explored efficiently with a point plot. The heat map shows the points
+with a higher density of diamonds and lesser density of diamonds without
+getting muddled.
 
-- Comment on labels, legends, colors, and overall readability. 
+-   Comment on labels, legends, colors, and overall readability.
 
-The heatmaps show the density in different colors, making it more readable and understandable of the relationship. All graphs are labeled with accurate titles and labels. 
+The heatmaps show the density in different colors, making it more
+readable and understandable of the relationship. All graphs are labeled
+with accurate titles and labels.
 
-- Mention any steps you took to make plots accessible and interpretable.
-W
-e chose to utilize a heat map instead of a normal point plot to make it more 
-interpretable and accessible due to the sheer amount of entires. 
+-   Mention any steps you took to make plots accessible and
+    interpretable. W e chose to utilize a heat map instead of a normal
+    point plot to make it more interpretable and accessible due to the
+    sheer amount of entires.
 
 # 6. Modeling Approach
 
 Explain how you framed the problem and which models you chose:
 
-- Type of task (regression, classification, etc.).  
-- Baseline model or heuristic, if used.  
-- Main model(s) chosen and why they are appropriate.
+-   Type of task (regression, classification, etc.).\
+-   Baseline model or heuristic, if used.\
+-   Main model(s) chosen and why they are appropriate.
 
 # 7. Model Implementation & Evaluation
 
-This corresponds to the **Model Implementation & Evaluation** rubric criterion.
+This corresponds to the **Model Implementation & Evaluation** rubric
+criterion.
 
 Describe:
 
-- Features used.  
-- Data splitting strategy (train/test or cross-validation).  
-- Metrics used (accuracy, F1, RMSE, etc.).  
-- Tables/plots summarizing performance.  
-- A short interpretation of each metric/plot.
+-   Features used.\
+-   Data splitting strategy (train/test or cross-validation).\
+-   Metrics used (accuracy, F1, RMSE, etc.).\
+-   Tables/plots summarizing performance.\
+-   A short interpretation of each metric/plot.
 
 ```{r modeling, eval=FALSE}
 # Example structure:
@@ -161,17 +184,17 @@ diamond_my_df %>%
 
 Summarize the key takeaways:
 
-- Answer your original research question(s) directly.  
-- Highlight the most important patterns or relationships you found.  
-- Discuss limitations (data size, bias, missing variables, etc.).  
-- Suggest possible extensions or future work.
+-   Answer your original research question(s) directly.\
+-   Highlight the most important patterns or relationships you found.\
+-   Discuss limitations (data size, bias, missing variables, etc.).\
+-   Suggest possible extensions or future work.
 
 # 9. Code Quality & Reproducibility
 
 Briefly document how someone else can reproduce your results:
 
-- Which R scripts or Rmd files to run.  
-- Any required R packages.  
+-   Which R scripts or Rmd files to run.\
+-   Any required R packages.
 
 ```{r session-info, echo=FALSE}
 sessionInfo()
@@ -185,15 +208,14 @@ diamonds <- readr::read_csv("data/sample_data.csv")
 
 List any references you used, such as:
 
-- Dataset documentation.  
-- Research papers or articles.  
-- Tutorials or blog posts.
+-   Dataset documentation.\
+-   Research papers or articles.\
+-   Tutorials or blog posts.
 
-https://www.vrai.com/journal/post/diamond-carat-price
-article by Alicia Briggs | February 06, 2023
+<https://www.vrai.com/journal/post/diamond-carat-price> article by
+Alicia Briggs \| February 06, 2023
 
-https://www.kaggle.com/datasets/ayeshaseherr/diamonds.
-
+<https://www.kaggle.com/datasets/ayeshaseherr/diamonds>.
 
 # Appendix (Optional)
 
