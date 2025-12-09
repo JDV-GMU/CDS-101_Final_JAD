@@ -23,23 +23,30 @@ diamonds <- readr::read_csv("data/sample_data.csv")
 ```
 # cleaning data, only getting the needed values
 ```{r}
-library(tidyverse)
 diamond_1 <- diamonds %>%
   select(carat, cut, clarity, price) %>%
   mutate(
-    cut = as.character(cut),
-    clarity = as.character(clarity)
+    cut_n = as.numeric(factor(
+      cut,
+      levels = c("Fair", "Good", "Very Good", "Premium", "Ideal")
+    )
+  ),
+    clarity_n = as.numeric(factor(
+      clarity,
+      levels = c("I1", "SI2", "SI1", "VS2", "VS1", "VVS2", "VVS1", "IF")
+    ))
   )
 ```
 # Clarity and cut vs prices point plots
 ```{r, fig.width = 7}
 diamond_1 %>%
-  pivot_longer(cols = cut:clarity,
+  pivot_longer(cols = cut_n|clarity_n|carat,
                names_to = "measurement",
                values_to = "value") %>%
   ggplot() +
-  geom_boxplot(aes(x = value, y = price)) +
-  facet_wrap(~ measurement, scales = "free_x") +
+    geom_bin2d(aes(x = value, y = price)) +
+    scale_fill_viridis_c(trans = "log") +
+    facet_wrap(~ measurement, scales = "free_x") +
   labs(title = "Cut and Clarity vs Price") +
   theme(axis.text.x = element_text(angle = 55))
 ```
@@ -69,7 +76,7 @@ Diamond_model_a %>%
 ```
 # Linear regression model for cut
 ```{r}
-Diamond_model_u <- lm(price ~ cut, data = diamond_1)
+Diamond_model_u <- lm(price ~ cut_n, data = diamond_1)
 ```
 ```{r}
 Diamond_model_u %>%
@@ -81,7 +88,7 @@ Diamond_model_u %>%
 ```
 # Linear regression model for clarity
 ```{r}
-Diamond_model_y <- lm(price ~ clarity, data = diamond_1)
+Diamond_model_y <- lm(price ~ clarity_n, data = diamond_1)
 ```
 ```{r}
 Diamond_model_y %>%
@@ -93,7 +100,7 @@ Diamond_model_y %>%
 ```
 # graphing Carat vs price in relation to its Model
 ```{r}
-diamond_ma_df <- diamonds %>%
+diamond_ma_df <- diamond_1 %>%
   add_predictions(Diamond_model_a) %>%
   add_residuals(Diamond_model_a)
 ```
@@ -113,7 +120,7 @@ scale_fill_viridis_c(trans = "log") +
 ```
 # graphing cut vs price in relation to its Model
 ```{r}
-diamond_mu_df <- diamonds %>%
+diamond_mu_df <- diamond_1 %>%
   add_predictions(Diamond_model_u) %>%
   add_residuals(Diamond_model_u)
 ```
@@ -127,7 +134,7 @@ ggplot(diamond_mu_df) +
 ```
 # graphing clarity vs price in relation to its Model
 ```{r}
-diamond_my_df <- diamonds %>%
+diamond_my_df <- diamond_1 %>%
   add_predictions(Diamond_model_y) %>%
   add_residuals(Diamond_model_y)
 ```
@@ -168,5 +175,10 @@ article by Alicia Briggs | February 06, 2023
 
 "Does The Carat Of A Diamond Affect The Price?
 Carat weight is a significant factor in determining the total price of a diamond, but it’s not the only one. The price of a diamond exponentially rises after 1 carat, with a 2 carat diamond often more than double the cost. Why? Because the higher the carat weight, the bigger the loose diamond it was cut from. This means the diamond is rarer and therefore more valuable."
+```{r}
+diamond_2 <- diamond_1 %>%
+  mutate(cut_numeric = as.numeric(factor(cut)),
+         clarity_numeric = as.numeric(factor(clarity)))
+```
 
 
