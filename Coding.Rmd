@@ -47,8 +47,7 @@ diamond_1 %>%
     geom_bin2d(aes(x = value, y = price)) +
     scale_fill_viridis_c(trans = "log") +
     facet_wrap(~ measurement, scales = "free_x") +
-  labs(title = "Cut and Clarity vs Price") +
-  theme(axis.text.x = element_text(angle = 55))
+  labs(title = "Cut and Clarity vs Price")
 ```
 # Carat vs price heat plot
 ```{r}
