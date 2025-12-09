@@ -209,7 +209,7 @@ Summarize the key takeaways:
 -   Carat seems to have a higher correlation with Price in comparison to Clarity and Cut.
 -   Carat's squared residuals indicated a much higher correlation with the Pricing of a diamond sold.
 -   This is nearly 54 thousand entries with the price range approximatly 18497 dollars in length.
--   
+-   To quote an article by Alicia Briggs from Vrai, "Carat weight is a significant factor in determining the total price of a diamond, but it’s not the only one. The price of a diamond exponentially rises after 1 carat, with a 2 carat diamond often more than double the cost. Why? Because the higher the carat weight, the bigger the loose diamond it was cut from. This means the diamond is rarer and therefore more valuable."
 
 # 9. Code Quality & Reproducibility
 
@@ -351,7 +351,7 @@ ggplot(diamond_my_df) +
   geom_point(mapping = aes(x = price, y = clarity)) +
   geom_abline(slope = Diamond_model_y$coefficients[2], intercept = Diamond_model_y$coefficients[1])
 ```
-
+# residual histogram plots of all 3 models.
 ```{r}
 diamond_ma_df %>%
   ggplot()+
