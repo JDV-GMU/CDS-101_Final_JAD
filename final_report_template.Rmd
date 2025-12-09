@@ -131,16 +131,16 @@ with accurate titles and labels.
     
 We chose to utilize a heat map instead of a normal point plot to make it more interpretable and accessible due to the sheer amount of entries.
 
-```{r, fig.width = 8}
+```{r, fig.width = 7}
 diamond_1 %>%
   pivot_longer(cols = cut:clarity,
                names_to = "measurement",
                values_to = "value") %>%
   ggplot() +
-    geom_bin2d(aes(x = value, y = price)) +
-    scale_fill_viridis_c(trans = "log") +
-    facet_wrap(~ measurement, scales = "free_x")+
-  labs(title = "Cut and Clarity vs Price")
+  geom_boxplot(aes(x = value, y = price)) +
+  facet_wrap(~ measurement, scales = "free_x") +
+  labs(title = "Clarity and Cut vs Price") +
+  theme(axis.text.x = element_text(angle = 55))
 ```
 ```{r}
 diamond_1 %>%
@@ -375,10 +375,6 @@ diamond_my_df %>%
 # 10. References
 
 List any references you used, such as:
-
--   Dataset documentation.\
--   Research papers or articles.\
--   Tutorials or blog posts.
 
 <https://www.vrai.com/journal/post/diamond-carat-price> article by
 Alicia Briggs \| February 06, 2023

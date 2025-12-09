@@ -25,18 +25,17 @@ diamond_1 <- diamonds %>%
   select(carat, cut, clarity, price)
 ```
 # Clarity and cut vs prices point plots
-```{r, fig.width = 8}
+```{r, fig.width = 7}
 diamond_1 %>%
   pivot_longer(cols = cut:clarity,
                names_to = "measurement",
                values_to = "value") %>%
   ggplot() +
-    geom_bin2d(aes(x = value, y = price)) +
-    scale_fill_viridis_c(trans = "log") +
-    facet_wrap(~ measurement, scales = "free_x")
+  geom_boxplot(aes(x = value, y = price)) +
+  facet_wrap(~ measurement, scales = "free_x") +
+  labs(title = "Cut and Clarity vs Price") +
+  theme(axis.text.x = element_text(angle = 55))
 ```
-
-
 # Carat vs price heat plot
 ```{r}
 
@@ -62,8 +61,6 @@ Diamond_model_a %>%
 Diamond_model_a %>%
   glance()
 ```
-R squared is closest to 1
-
 # Linear regression model for cut
 ```{r}
 Diamond_model_u <- lm(price ~ cut, data = diamond_1)
@@ -76,8 +73,6 @@ Diamond_model_u %>%
 Diamond_model_u %>%
   glance()
 ```
-
-
 # Linear regression model for clarity
 ```{r}
 Diamond_model_y <- lm(price ~ clarity, data = diamond_1)
@@ -90,8 +85,6 @@ Diamond_model_y %>%
 Diamond_model_y %>%
   glance()
 ```
-
-
 # graphing Carat vs price in relation to its Model
 ```{r}
 diamond_ma_df <- diamonds %>%
@@ -112,7 +105,6 @@ ggplot(diamond_ma_df) +
 scale_fill_viridis_c(trans = "log") +
   geom_abline(slope = Diamond_model_a$coefficients[2], intercept = Diamond_model_a$coefficients[1])
 ```
-
 # graphing cut vs price in relation to its Model
 ```{r}
 diamond_mu_df <- diamonds %>%
@@ -127,9 +119,6 @@ ggplot(diamond_mu_df) +
   geom_point(mapping = aes(x = price, y = cut)) +
   geom_abline(slope = Diamond_model_u$coefficients[2], intercept = Diamond_model_u$coefficients[1])
 ```
-
-
-
 # graphing clarity vs price in relation to its Model
 ```{r}
 diamond_my_df <- diamonds %>%
