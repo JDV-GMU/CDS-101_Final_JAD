@@ -3,13 +3,13 @@ title: "CDS 101 – Final Project Report"
 author: "JAD - John D Villanuela, Akshaya Pabbisetty, David Brown"
 date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
-  pdf_document:
-    toc: true
   html_document:
     css: "gmu-cds101.css"
     toc: true
     toc_depth: 3
     number_sections: true
+  pdf_document:
+    toc: true
 editor_options: 
   markdown: 
     wrap: 72
@@ -44,7 +44,7 @@ USD.
 There are just under 54000 entries/rows in the dataset, making it very
 large overall.
 
-```{r setup-data, echo=FALSE, message=FALSE, warning=FALSE}
+```{r setup-data}
 library(readr)
 diamond_df <- read_csv("data/diamonds.csv")
 ```
@@ -59,10 +59,14 @@ Describe the steps you took to make the data usable, for example:
 -   Creating new features (feature engineering).\
 -   Any scaling or encoding.
 
-```{r cleaning, eval=FALSE}
+```{r cleaning}
 library(tidyverse)
 diamond_1 <- diamonds %>%
-  select(carat, cut, clarity, price)
+  select(carat, cut, clarity, price) %>%
+  mutate(
+    cut = as.character(cut),
+    clarity = as.character(clarity)
+  )
 ```
 
 # 4. Exploratory Data Analysis (EDA)
@@ -71,8 +75,9 @@ This section maps directly to the **EDA** part of the rubric:
 
 
 ```{r eda-summary, message=FALSE, warning=FALSE}
-# library(dplyr)
-# summary(data_clean)
+library(broom)
+library(tidyverse)
+library(modelr)
 Diamond_model_a <- lm(price ~ carat, data = diamond_1)
 Diamond_model_a %>%
   glance()
@@ -84,9 +89,19 @@ Diamond_model_u %>%
 Diamond_model_y <- lm(price ~ clarity, data = diamond_1)
 Diamond_model_y %>%
   glance()
+
+diamond_ma_df <- diamonds %>%
+  add_predictions(Diamond_model_a) %>%
+  add_residuals(Diamond_model_a)
+diamond_mu_df <- diamonds %>%
+  add_predictions(Diamond_model_u) %>%
+  add_residuals(Diamond_model_u)
+diamond_my_df <- diamonds %>%
+  add_predictions(Diamond_model_y) %>%
+  add_residuals(Diamond_model_y)
 ```
 
-When glancing at each model, the squared residual for the Carat Model is much closer to one in comparison to Cut's model and Clarity's model.
+When glancing at each model, the squared residual for the Carat Model is much closer to one in comparison to Cut's model and Clarity's model. As well as the creastion of the dataframes of said models.
 
 # 5. Visualization Quality and Storytelling
 
@@ -167,22 +182,19 @@ Describe:
 -   Tables/plots summarizing performance.\
 -   A short interpretation of each metric/plot.
 
-```{r modeling, eval=FALSE}
+```{r modeling}
 diamond_ma_df %>%
   ggplot()+
   geom_histogram(mapping = aes(x = resid), bins = 20) +
   labs(title = "Residuals of Carat Model")
-
 diamond_mu_df %>%
   ggplot()+
   geom_histogram(mapping = aes(x = resid), bins = 20) +
   labs(title = "Residuals of Cut Model")
-
 diamond_my_df %>%
   ggplot()+
   geom_histogram(mapping = aes(x = resid), bins = 20) +
   labs(title = "Residuals of Clarity Model")
-
 ```
 Model for Carat is Skewed left in total, but there is a higher spike at 0, where as Cut and clarity are skewed right.
 
@@ -200,6 +212,7 @@ Summarize the key takeaways:
 
 Briefly document how someone else can reproduce your results:
 
+## Set up.
 ```{r session-info, echo=FALSE}
 sessionInfo()
 suppressPackageStartupMessages(library(tidyverse))
@@ -207,28 +220,14 @@ suppressPackageStartupMessages(library(broom))
 suppressPackageStartupMessages(library(modelr))
 diamonds <- readr::read_csv("data/sample_data.csv")
 ```
-```{r setup}
-knitr::opts_chunk$set(
-  echo = TRUE,
-  eval = TRUE,
-  fig.width = 5,
-  fig.asp = 0.618,
-  out.width = "70%",
-  dpi = 120,
-  fig.align = "center",
-  cache = FALSE
-)
-suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(broom))
-suppressPackageStartupMessages(library(modelr))
-diamonds <- readr::read_csv("data/sample_data.csv")
-```
-# cleaning data, only getting the needed values
+
+## Cleaning data, only getting the needed values
 ```{r}
 diamond_1 <- diamonds %>%
   select(carat, cut, clarity, price)
 ```
-# Clarity and cut vs prices point plots
+
+## Clarity and cut vs prices point plots
 ```{r, fig.width = 8}
 diamond_1 %>%
   pivot_longer(cols = cut:clarity,
@@ -239,7 +238,8 @@ diamond_1 %>%
     scale_fill_viridis_c(trans = "log") +
     facet_wrap(~ measurement, scales = "free_x")
 ```
-# Carat vs price heat plot
+
+## Carat vs price heat plot
 ```{r}
 
 diamond_1 %>%
@@ -252,7 +252,8 @@ diamond_1 %>%
   ) + 
 scale_fill_viridis_c(trans = "log")
 ```
-# Linear regression model for carat
+
+## Linear regression model for carat
 ```{r}
 Diamond_model_a <- lm(price ~ carat, data = diamond_1)
 ```
@@ -264,7 +265,8 @@ Diamond_model_a %>%
 Diamond_model_a %>%
   glance()
 ```
-# Linear regression model for cut
+
+## Linear regression model for cut
 ```{r}
 Diamond_model_u <- lm(price ~ cut, data = diamond_1)
 ```
@@ -276,7 +278,8 @@ Diamond_model_u %>%
 Diamond_model_u %>%
   glance()
 ```
-# Linear regression model for clarity
+
+## Linear regression model for clarity
 ```{r}
 Diamond_model_y <- lm(price ~ clarity, data = diamond_1)
 ```
@@ -288,7 +291,8 @@ Diamond_model_y %>%
 Diamond_model_y %>%
   glance()
 ```
-# graphing Carat vs price in relation to its Model
+
+## Graphing Carat vs price in relation to its Model
 ```{r}
 diamond_ma_df <- diamonds %>%
   add_predictions(Diamond_model_a) %>%
@@ -308,7 +312,8 @@ ggplot(diamond_ma_df) +
 scale_fill_viridis_c(trans = "log") +
   geom_abline(slope = Diamond_model_a$coefficients[2], intercept = Diamond_model_a$coefficients[1])
 ```
-# graphing cut vs price in relation to its Model
+
+## Graphing cut vs price in relation to its Model
 ```{r}
 diamond_mu_df <- diamonds %>%
   add_predictions(Diamond_model_u) %>%
@@ -322,7 +327,8 @@ ggplot(diamond_mu_df) +
   geom_point(mapping = aes(x = price, y = cut)) +
   geom_abline(slope = Diamond_model_u$coefficients[2], intercept = Diamond_model_u$coefficients[1])
 ```
-# graphing clarity vs price in relation to its Model
+
+## Graphing clarity vs price in relation to its Model
 ```{r}
 diamond_my_df <- diamonds %>%
   add_predictions(Diamond_model_y) %>%
@@ -336,7 +342,8 @@ ggplot(diamond_my_df) +
   geom_point(mapping = aes(x = price, y = clarity)) +
   geom_abline(slope = Diamond_model_y$coefficients[2], intercept = Diamond_model_y$coefficients[1])
 ```
-# residual histogram plots of all 3 models.
+
+## Residual histogram plots of all 3 models.
 ```{r}
 diamond_ma_df %>%
   ggplot()+
@@ -358,13 +365,9 @@ diamond_my_df %>%
 
 # 10. References
 
-List any references you used, such as:
+References:
 
 <https://www.vrai.com/journal/post/diamond-carat-price> article by
 Alicia Briggs \| February 06, 2023
 
 <https://www.kaggle.com/datasets/ayeshaseherr/diamonds>.
-
-# Appendix (Optional)
-
-Include extra plots, diagnostic checks, or model comparisons if needed.

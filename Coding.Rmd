@@ -17,12 +17,19 @@ knitr::opts_chunk$set(
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(broom))
 suppressPackageStartupMessages(library(modelr))
+```
+```{r}
 diamonds <- readr::read_csv("data/sample_data.csv")
 ```
 # cleaning data, only getting the needed values
 ```{r}
+library(tidyverse)
 diamond_1 <- diamonds %>%
-  select(carat, cut, clarity, price)
+  select(carat, cut, clarity, price) %>%
+  mutate(
+    cut = as.character(cut),
+    clarity = as.character(clarity)
+  )
 ```
 # Clarity and cut vs prices point plots
 ```{r, fig.width = 7}
@@ -38,7 +45,6 @@ diamond_1 %>%
 ```
 # Carat vs price heat plot
 ```{r}
-
 diamond_1 %>%
   ggplot() +
   geom_bin2d(aes(x = carat, y = price)) +
