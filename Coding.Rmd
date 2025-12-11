@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(broom))
 suppressPackageStartupMessages(library(modelr))
+suppressPackageStartupMessages(library(boot))
 ```
 ```{r}
 diamonds <- readr::read_csv("data/sample_data.csv")
