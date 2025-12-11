@@ -67,7 +67,7 @@ diamond_1 <- diamonds %>%
     ))
   )
 ```
-Cut and Clarity do need to be changed into numeric values with as.numeric(factor()), and I have used levels to make sure that each category is properly organized in ascending quality.
+Cut and Clarity do need to be changed into numeric values with as.numeric(factor()), and I have used levels = c() to make sure that each category is properly organized in ascending quality.
 
 # 4. Exploratory Data Analysis (EDA)
 
@@ -98,7 +98,62 @@ diamond_my_df <- diamond_1 %>%
   add_residuals(Diamond_model_y)
 ```
 
-When glancing at each model, the squared residual for the Carat Model is much closer to one in comparison to Cut's model and Clarity's model. As well as the creastion of the dataframes of said models.
+When glancing at each model, the squared residual for the Carat Model is much closer to one in comparison to Cut's model and Clarity's model. As well as the creation of the dataframes of said models.
+
+```{r}
+diamond_2 <- diamond_1 %>%
+  mutate(
+    Weight_com_Clar = clarity_n / carat,
+    Weight_com_Cut = cut_n / carat
+  )
+```
+```{r}
+Diamond_model_au <- lm(price ~ Weight_com_Cut, data = diamond_2)
+```
+```{r}
+Diamond_model_au %>%
+  tidy()
+```
+```{r}
+Diamond_model_au %>%
+  glance()
+```
+
+```{r}
+Diamond_model_ay <- lm(price ~ Weight_com_Clar, data = diamond_2)
+```
+```{r}
+Diamond_model_ay %>%
+  tidy()
+```
+```{r}
+Diamond_model_ay %>%
+  glance()
+```
+```{r}
+diamond_may_df <- diamond_2 %>%
+  add_predictions(Diamond_model_ay) %>%
+  add_residuals(Diamond_model_ay)
+
+diamond_mau_df <- diamond_2 %>%
+  add_predictions(Diamond_model_au) %>%
+  add_residuals(Diamond_model_au)
+```
+
+```{r}
+diamond_mau_df %>%
+  ggplot()+
+  geom_histogram(mapping = aes(x = resid), bins = 20) +
+  labs(title = "Residuals of Model A and U")
+```
+```{r}
+diamond_may_df %>%
+  ggplot()+
+  geom_histogram(mapping = aes(x = resid), bins = 20) +
+  labs(title = "Residuals of Model A and Y")
+```
+
+To further conclude a hierarchy of influence, we did see how Carat and Clarity compares to Weight and Cut as their own variables. The results do show the a Cut of a diamond has a greater influence over Clarity, with Weight_com_Cut's squared residuals being closer to 1.
 
 # 5. Visualization Quality and Storytelling
 
@@ -122,9 +177,9 @@ with accurate titles and labels.
     
 We chose to utilize a heat map instead of a normal point plot to make it more interpretable and accessible due to the sheer amount of entries.
 
-```{r, fig.width = 7}
+```{r, fig.width = 7, out.width = "100%"}
 diamond_1 %>%
-  pivot_longer(cols = cut_n:clarity_n,
+  pivot_longer(cols = cut_n|clarity_n|carat,
                names_to = "measurement",
                values_to = "value") %>%
   ggplot() +
@@ -136,8 +191,7 @@ diamond_1 %>%
   ) + 
 scale_fill_viridis_c(trans = "log") +
   facet_wrap(~ measurement, scales = "free_x") +
-  labs(title = "Clarity and Cut vs Price") +
-  theme(axis.text.x = element_text(angle = 55))
+  labs(title = "Clarity and Cut vs Price")
 ```
 ```{r}
 diamond_1 %>%

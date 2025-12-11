@@ -17,7 +17,6 @@ knitr::opts_chunk$set(
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(broom))
 suppressPackageStartupMessages(library(modelr))
-suppressPackageStartupMessages(library(boot))
 ```
 ```{r}
 diamonds <- readr::read_csv("data/sample_data.csv")
@@ -175,10 +174,61 @@ article by Alicia Briggs | February 06, 2023
 
 "Does The Carat Of A Diamond Affect The Price?
 Carat weight is a significant factor in determining the total price of a diamond, but it’s not the only one. The price of a diamond exponentially rises after 1 carat, with a 2 carat diamond often more than double the cost. Why? Because the higher the carat weight, the bigger the loose diamond it was cut from. This means the diamond is rarer and therefore more valuable."
+
+
+
 ```{r}
 diamond_2 <- diamond_1 %>%
-  mutate(cut_numeric = as.numeric(factor(cut)),
-         clarity_numeric = as.numeric(factor(clarity)))
+  mutate(
+    Weight_com_Clar = clarity_n / carat,
+    Weight_com_Cut = cut_n / carat
+  )
+```
+```{r}
+Diamond_model_au <- lm(price ~ Weight_com_Cut, data = diamond_2)
+```
+```{r}
+Diamond_model_au %>%
+  tidy()
+```
+```{r}
+Diamond_model_au %>%
+  glance()
+```
+
+```{r}
+Diamond_model_ay <- lm(price ~ Weight_com_Clar, data = diamond_2)
+```
+```{r}
+Diamond_model_ay %>%
+  tidy()
+```
+```{r}
+Diamond_model_ay %>%
+  glance()
+```
+```{r}
+diamond_may_df <- diamond_2 %>%
+  add_predictions(Diamond_model_ay) %>%
+  add_residuals(Diamond_model_ay)
+```
+```{r}
+diamond_mau_df <- diamond_2 %>%
+  add_predictions(Diamond_model_au) %>%
+  add_residuals(Diamond_model_au)
+```
+
+```{r}
+diamond_mau_df %>%
+  ggplot()+
+  geom_histogram(mapping = aes(x = resid), bins = 20) +
+  labs(title = "Residuals of Model A and U")
 ```
 
 
+```{r}
+diamond_may_df %>%
+  ggplot()+
+  geom_histogram(mapping = aes(x = resid), bins = 20) +
+  labs(title = "Residuals of Model A and Y")
+```
