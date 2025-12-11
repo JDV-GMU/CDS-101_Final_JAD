@@ -179,7 +179,7 @@ We chose to utilize a heat map instead of a normal point plot to make it more in
 
 ```{r, fig.width = 7, out.width = "100%"}
 diamond_1 %>%
-  pivot_longer(cols = cut_n|clarity_n|carat,
+  pivot_longer(cols = cut_n|clarity_n,
                names_to = "measurement",
                values_to = "value") %>%
   ggplot() +
@@ -363,7 +363,7 @@ diamond_mu_df
 ```
 ```{r}
 ggplot(diamond_mu_df) +
-  geom_point(mapping = aes(x = price, y = cut)) +
+  geom_point(mapping = aes(x = price, y = cut_n)) +
   geom_abline(slope = Diamond_model_u$coefficients[2], intercept = Diamond_model_u$coefficients[1])
 ```
 
@@ -378,7 +378,7 @@ diamond_my_df
 ```
 ```{r}
 ggplot(diamond_my_df) +
-  geom_point(mapping = aes(x = price, y = clarity)) +
+  geom_point(mapping = aes(x = price, y = clarity_n)) +
   geom_abline(slope = Diamond_model_y$coefficients[2], intercept = Diamond_model_y$coefficients[1])
 ```
 
