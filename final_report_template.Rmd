@@ -144,13 +144,13 @@ diamond_mau_df <- diamond_2 %>%
 diamond_mau_df %>%
   ggplot()+
   geom_histogram(mapping = aes(x = resid), bins = 20) +
-  labs(title = "Residuals of Model A and U")
+  labs(title = "Residuals of Models A and U")
 ```
 ```{r}
 diamond_may_df %>%
   ggplot()+
   geom_histogram(mapping = aes(x = resid), bins = 20) +
-  labs(title = "Residuals of Model A and Y")
+  labs(title = "Residuals of Models A and Y")
 ```
 
 To further conclude a hierarchy of influence, we did see how Carat and Clarity compares to Weight and Cut as their own variables. The results do show the a Cut of a diamond has a greater influence over Clarity, with Weight_com_Cut's squared residuals being closer to 1.
@@ -451,13 +451,13 @@ diamond_mau_df <- diamond_2 %>%
 diamond_mau_df %>%
   ggplot()+
   geom_histogram(mapping = aes(x = resid), bins = 20) +
-  labs(title = "Residuals of Model A and U")
+  labs(title = "Residuals of Models A and U")
 ```
 ```{r}
 diamond_may_df %>%
   ggplot()+
   geom_histogram(mapping = aes(x = resid), bins = 20) +
-  labs(title = "Residuals of Model A and Y")
+  labs(title = "Residuals of Models A and Y")
 ```
 
 # 10. References
