@@ -209,19 +209,10 @@ scale_fill_viridis_c(trans = "log")
 
 Explain how you framed the problem and which models you chose:
 
--   Type of task (regression, classification, etc.).
-
 A basic linear regression model was used as it was the most appropriate model
 to use as our research question was looking at the correlation between three
 variables and which one affected the pricing of diamonds the most among all
 entries, and a linear regression model was the most convenient method to do so.
-
--   Main model(s) chosen and why they are appropriate.
-
-The main models we used were the box plots and the heat maps (2d bin plots). 
-The box plots were used on the cut and clarity predictors due to them being 
-categorical, and the heat maps were used with the carat predictor since it 
-is a continuous predictor.
 
 # 7. Model Implementation & Evaluation
 
@@ -290,7 +281,6 @@ diamond_1 %>%
 
 ## Carat vs price heat plot
 ```{r}
-
 diamond_1 %>%
   ggplot() +
   geom_bin2d(aes(x = carat, y = price)) +
@@ -410,6 +400,64 @@ diamond_my_df %>%
   ggplot()+
   geom_histogram(mapping = aes(x = resid), bins = 20) +
   labs(title = "Residuals of Model Y")
+```
+## Mutating for other features over carats.
+```{r}
+diamond_2 <- diamond_1 %>%
+  mutate(
+    Weight_com_Clar = clarity_n / carat,
+    Weight_com_Cut = cut_n / carat
+  )
+```
+
+## Creating the models and numerical squared residuals.
+```{r}
+Diamond_model_au <- lm(price ~ Weight_com_Cut, data = diamond_2)
+```
+```{r}
+Diamond_model_au %>%
+  tidy()
+```
+```{r}
+Diamond_model_au %>%
+  glance()
+```
+```{r}
+Diamond_model_ay <- lm(price ~ Weight_com_Clar, data = diamond_2)
+```
+```{r}
+Diamond_model_ay %>%
+  tidy()
+```
+```{r}
+Diamond_model_ay %>%
+  glance()
+```
+## Dataframing the combined residuals
+```{r}
+diamond_may_df <- diamond_2 %>%
+  add_predictions(Diamond_model_ay) %>%
+  add_residuals(Diamond_model_ay)
+```
+```{r}
+diamond_mau_df <- diamond_2 %>%
+  add_predictions(Diamond_model_au) %>%
+  add_residuals(Diamond_model_au)
+```
+
+
+## Residual histogram plots of the models.
+```{r}
+diamond_mau_df %>%
+  ggplot()+
+  geom_histogram(mapping = aes(x = resid), bins = 20) +
+  labs(title = "Residuals of Model A and U")
+```
+```{r}
+diamond_may_df %>%
+  ggplot()+
+  geom_histogram(mapping = aes(x = resid), bins = 20) +
+  labs(title = "Residuals of Model A and Y")
 ```
 
 # 10. References
